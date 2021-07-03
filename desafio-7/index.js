@@ -1,6 +1,6 @@
 const express = require('express')
 const app = express()
-const {getProducts,getRandom} = require('./utils')
+const {getItems,getRandomItem} = require('./utils')
  
 const PORT = 8080
 
@@ -9,13 +9,13 @@ let counterItem=0;
 
 
 app.get('/items', async (req,res)=>{
-    const data = await getProducts()
+    const data = await getItems()
     counterItems++;
     res.send(data)
 })
 
 app.get('/item-random', async(req,res)=>{
-    const data = await getRandom()
+    const data = await getRandomItem()
     counterItem++;
     res.send(data)
 })
