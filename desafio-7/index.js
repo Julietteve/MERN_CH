@@ -25,12 +25,12 @@ app.get('/visitas', (req, res) => {
     res.send(obj)
 })
 
-app.get('*', (req, res)=>{
+app.get('*', (req, res) => {
     res.send( '404 | Ruta no encontrada');
 })
 
 
-const server = app.listen(PORT, ()=> {
+const server = app.listen(PORT, () => {
     console.log(`Servidor escuchando en puerto http://localhost:${server.address().port}`)
 })
 server.on( "error" , err => console.log(`Error en el servidor :  ${err}`))
