@@ -21,5 +21,5 @@ producto.leer()
     }
 )  */
 
-/* producto.borrar() */
+/*  producto.borrar()  */
 

@@ -54,7 +54,12 @@ class Archivo{
             console.log(`${this.name} se elimino correctamente`)
         }
         catch(err){
-            console.error('Ocurrio un error: ', err.message)
+
+            //Si el archivo ya fue eliminado
+            
+            if(err.code === 'ENOENT'){
+                console.log(`${this.name} ya ha sido eliminado`)
+            }
         }
     }
 
