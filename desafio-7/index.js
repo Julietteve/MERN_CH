@@ -29,7 +29,6 @@ app.get('*', (req, res) => {
     res.send( '404 | Ruta no encontrada');
 })
 
-
 const server = app.listen(PORT, () => {
     console.log(`Servidor escuchando en puerto http://localhost:${server.address().port}`)
 })
