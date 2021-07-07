@@ -21,7 +21,7 @@ class Server {
     //Routes
 
     routes(){
-        this.app.use(this.productPath, require('../Routes/product'))
+        this.app.use(this.productPath, require('../routes/product'))
     }
 
     //Open connection
@@ -30,6 +30,7 @@ class Server {
         this.app.listen( this.port, ()=>{
             console.log(`Escuchando en puerto ${this.port}`)
         })
+        this.app.on( "error" , err => console.log(`Error en el servidor :  ${err}`))
     }
 
 }
