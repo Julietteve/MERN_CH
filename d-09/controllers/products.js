@@ -65,8 +65,80 @@ const postProduct = async (req,res=response)=>{
     }
 }
 
+const putProduct = async (req,res=response) => {
+    const id = req.params.id
+    const {title,price,thumbnail} = req.body
+    
+    const response = {
+        title,
+        price,
+        thumbnail,
+        id: parseInt(id)
+    }
+
+    try{
+        const data = await readFile('db/products.txt', 'utf-8')
+        const parsedProducts = JSON.parse(data)
+        const index = parsedProducts.findIndex(product => product.id == id)
+
+        parsedProducts[index] = response
+
+        await writeFile('db/products.txt', JSON.stringify(parsedProducts, null, '\t')) 
+        
+            if(id != null){
+                res.send({
+                    msg: ` Producto ID:${id} actualizado`,
+                    data : response
+                })
+            }
+            else{
+                res.send({error : 'producto no encontrado'})
+            }
+
+    }
+    catch(err){
+        console.log(err)
+    }
+
+
+}
+
+const deleteProduct = async (req,res=response) => {
+
+    const id = req.params.id
+
+    try{
+        const data = await readFile('db/products.txt', 'utf-8')
+        const parsedProducts = JSON.parse(data)
+        const index = parsedProducts.findIndex(product => product.id == id)
+        const deleted = parsedProducts.filter(item => item.id != id)
+
+        await writeFile('db/products.txt', JSON.stringify(deleted, null, '\t')) 
+        
+            if(id != null){
+                res.send({
+                    msg: ` Producto ID:${id} eliminado`,
+                    data : parsedProducts[index]
+                })
+            }
+            else{
+                res.send({error : 'producto no encontrado'})
+            }
+
+    }
+    catch(err){
+        console.log(err)
+    }
+    
+
+
+
+}
+
 module.exports = {
     getProducts,
     getProduct,
-    postProduct
+    postProduct,
+    putProduct,
+    deleteProduct
 }
