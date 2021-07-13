@@ -16,11 +16,14 @@ class Server {
 
     applyMiddleware(){
         this.app.use(express.json())
+        this.app.use(express.urlencoded({ extended: true }));
+        this.app.use(express.static('public'));
     } 
 
     //Routes
 
     routes(){
+        
         this.app.use(this.productPath, require('../routes/product'))
     }
 

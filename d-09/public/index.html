@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous"> 
+        <title>Formulario de Ingreso de Productos</title>
+    </head>
+    <body>
+        <div class="container row">
+            <div class="col-4">
+                <h3 class="card-title">Ingrese Producto</h3>
+                <form action="/api/productos" method="POST">
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Titulo</label>
+                      <input input type="text" name="title" class="form-control" id="exampleInputEmail1" placeholder="Titulo" required>
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputPassword1">Precio</label>
+                      <input type="number" step=".01" name="price" class="form-control" id="exampleInputPassword1" placeholder="Precio" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Imagen URL</label>
+                        <input  type="text" name="thumbnail" name="price" class="form-control" placeholder="Thumbnail" required>
+                      </div>
+                    <button type="submit" class="btn btn-success">Enviar</button>
+                  </form>
+            </div>
+        </div>
+    </body>
+
+</html>

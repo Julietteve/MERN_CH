@@ -53,7 +53,7 @@ const postProduct = async (req,res=response)=>{
         id: await getLenArr()
     }
  
-    res.send(response)
+    res.send({msg:`Producto con id ${response.id} agregado`, res : response})
 
     try{
         const data = await readFile('db/products.txt', 'utf-8')
@@ -87,7 +87,7 @@ const putProduct = async (req,res=response) => {
         
             if(id != null){
                 res.send({
-                    msg: ` Producto ID:${id} actualizado`,
+                    msg: ` Producto conn id ${id} actualizado`,
                     data : response
                 })
             }
@@ -140,5 +140,5 @@ module.exports = {
     getProduct,
     postProduct,
     putProduct,
-    deleteProduct
+    deleteProduct,
 }
