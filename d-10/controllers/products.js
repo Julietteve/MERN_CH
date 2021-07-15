@@ -1,9 +1,8 @@
-const { response } = require('express');
 const { readFile } = require('fs/promises');
 const { writeFile } = require('fs/promises');
 const getLenArr = require('../utils/index')
 
-const getProducts = async (req,res=response)=>{
+const getProducts = async (req,res)=>{
 
     try{
         const data = await readFile('db/products.txt', 'utf-8')
@@ -22,7 +21,7 @@ const getProducts = async (req,res=response)=>{
     
 }
 
-const getProduct =async(req, res=response)=>{
+const getProduct =async(req, res)=>{
 
     try{
         const id = req.params.id
@@ -44,7 +43,7 @@ const getProduct =async(req, res=response)=>{
 
 
 
-const postProduct = async (req,res=response)=>{
+const postProduct = async (req,res)=>{
     const {title,price,thumbnail} = req.body
     const response = {
         title,
@@ -65,7 +64,7 @@ const postProduct = async (req,res=response)=>{
     }
 }
 
-const putProduct = async (req,res=response) => {
+const putProduct = async (req,res) => {
     const id = req.params.id
     const {title,price,thumbnail} = req.body
     
@@ -103,7 +102,7 @@ const putProduct = async (req,res=response) => {
 
 }
 
-const deleteProduct = async (req,res=response) => {
+const deleteProduct = async (req,res) => {
 
     const id = req.params.id
 
@@ -131,7 +130,7 @@ const deleteProduct = async (req,res=response) => {
     }
 }
 
-const formNewProduct = (req,res=response) => {
+const formNewProduct = (req,res) => {
         res.render('form-nuevo-producto',{vista:'Ingrese producto', port: process.env.PORT})
 }
 
