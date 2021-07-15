@@ -10,7 +10,7 @@ const getProducts = async (req,res=response)=>{
         const parsedData = JSON.parse(data)
 
         if(parsedData.length>0){
-            res.render('productos', {vista:`Vista de productos`, data : {parsedData}})
+            res.render('productos', {vista:`Vista de productos`, data : {parsedData}, port: process.env.PORT})
         }
         else{
             res.render('sin-productos', {vista: 'Vista de productos', error : "No se encontraron productos"})
@@ -31,7 +31,7 @@ const getProduct =async(req, res=response)=>{
         const parsedData = parsedProducts.filter(product => product.id == id)
 
         if(parsedData.length>0){
-            res.render('productos', {vista:`Vista de producto id ${id}`, data : {parsedData}})
+            res.render('productos', {vista:`Vista de producto id ${id}`, data : {parsedData}, port: process.env.PORT})
             console.log(parsedData)
         }else{
             res.render('sin-productos',{vista: 'Vista de producto', error : 'Producto no encontrado'})
@@ -53,7 +53,7 @@ const postProduct = async (req,res=response)=>{
         id: await getLenArr()
     }
  
-    res.send({msg:`Producto con id ${response.id} agregado`, res : response})
+   res.redirect('/api/productos/nuevo-producto')
 
     try{
         const data = await readFile('db/products.txt', 'utf-8')
@@ -132,7 +132,7 @@ const deleteProduct = async (req,res=response) => {
 }
 
 const formNewProduct = (req,res=response) => {
-        res.render('form-nuevo-producto',{vista:'Ingrese producto'})
+        res.render('form-nuevo-producto',{vista:'Ingrese producto', port: process.env.PORT})
 }
 
 module.exports = {
