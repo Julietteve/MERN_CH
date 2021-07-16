@@ -1,0 +1,25 @@
+extends layout/layout.pug
+
+block content
+    div.box-container
+        div.products-container
+            div.row
+                div.col-6
+                    h2.product-title=vista
+                div.col-6
+                    div.d-flex.justify-content-end
+                        a.btn.btn-primary(href=`http://localhost:${port}/api/productos/nuevo-producto` role="button") Cargar nuevo producto
+                div.table-responsive
+                    table.table.table-dark
+                        thead
+                        tr
+                            th Nombre
+                            th Precio
+                            th Foto
+                        tbody
+                        each value in data.parsedData
+                            tr
+                                td=value.title
+                                td=`$ ${value.price}`
+                                td 
+                                    img(width="60" src=value.thumbnail alt="not found")
