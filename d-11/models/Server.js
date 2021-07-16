@@ -10,7 +10,7 @@ class Server {
 
         this.applyMiddleware()
         this.routes()
-        this.pug()
+        this.ejs()
     }
 
     //Middleware
@@ -27,12 +27,11 @@ class Server {
         this.app.use(this.productPath, require('../routes/product'))
     }
 
-    //pug
+    //ejs
 
-    pug(){
-        this.app.set('view engine', 'pug');
-        this.app.set("views", "./views");
-      
+    ejs(){
+        this.app.set('views', './views');
+        this.app.set('view engine', 'ejs');
     }
 
     //Open connection
