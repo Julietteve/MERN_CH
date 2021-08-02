@@ -10,6 +10,7 @@ const listaProductos = []
 class Server {
 
     constructor(){
+
         this.app = express()
         this.port = process.env.PORT
         this.productPath = '/api/productos'
@@ -25,6 +26,7 @@ class Server {
     //Middleware
 
     applyMiddleware(){
+
         this.app.use(express.json())
         this.app.use(express.urlencoded({ extended: true }));
         this.app.use(express.static('public'));
@@ -33,6 +35,7 @@ class Server {
     //Routes
 
     routes(){
+
         this.app.get('/', (req, res) => {
             res.sendFile(__dirname + '/public/index.html')
           })
@@ -43,6 +46,7 @@ class Server {
     //handlebars
 
     hsb(){
+
         this.app.engine(
             "hbs",
             handlebars({
@@ -58,6 +62,7 @@ class Server {
     //Sockets
 
     sockets() {
+        
         this.io.on('connection', async (socket) => {
             console.log('Cliente conectado')
 
@@ -85,6 +90,7 @@ class Server {
     //Open connection
 
     listen(){
+
         this.server.listen( this.port, ()=>{
             console.log(`Escuchando en puerto ${this.port}`)
         })

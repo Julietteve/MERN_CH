@@ -6,7 +6,12 @@ function pickForm() {
         price: document.getElementById('input-price').value,
         thumbnail: document.getElementById('input-thumbnail').value
       };
+      
       socket.emit('boton', producto);
+
+      document.getElementById('input-title').value = ''
+      document.getElementById('input-price').value = ''
+      document.getElementById('input-thumbnail').value = ''
       
     return false;
 }
@@ -89,6 +94,7 @@ const mapData = (data) => {
 }
 
 function addMessage() {
+
     const mensaje = {
       author: document.getElementById('username').value,
       text: document.getElementById('texto').value
