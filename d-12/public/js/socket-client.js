@@ -65,3 +65,37 @@ socket.on('productos', data => {
     }
 })
 
+socket.on('messages', data => {
+    mapData (data)
+})
+
+const mapData = (data) => {
+
+    const messages = data.map( message => {
+        return (
+        `
+        <div class="box-container-msg">
+            <div class="date">
+                <strong class="author" >${message.author}</strong>
+                    [(${message.date})]:
+                <em class="message">${message.text}</em> 
+            </div>
+        </div>
+        `
+        )
+    }).join(" ")
+
+    document.getElementById('messages').innerHTML = messages;
+}
+
+function addMessage() {
+    const mensaje = {
+      author: document.getElementById('username').value,
+      text: document.getElementById('texto').value
+    };
+    socket.emit('new-message', mensaje);
+    document.getElementById('texto').value = ''
+    document.getElementById('texto').focus()
+
+    return false;
+}

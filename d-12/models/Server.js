@@ -1,6 +1,9 @@
 const express = require('express')
 var  handlebars  = require('express-handlebars');
+const File = require('./File');
 require('dotenv').config()
+
+const archivo = new File()
 
 const listaProductos = []
 
@@ -54,20 +57,29 @@ class Server {
 
     //Sockets
 
-    sockets(){
-        this.io.on('connection', socket => {
+    sockets() {
+        this.io.on('connection', async (socket) => {
             console.log('Cliente conectado')
 
+            //Productos
             socket.emit('productos', listaProductos)
 
             socket.on('boton', (data) => {
 
-              listaProductos.push(data);
+            listaProductos.push(data);
               this.io.sockets.emit('productos', listaProductos)
               
             })
+
+            //Chat
+            socket.emit('messages', await archivo.read())
+
+            socket.on('new-message', async (data) => {
+          
+            await archivo.save(data.author, data.text)
+              this.io.sockets.emit('messages', await archivo.read())
+            })
         })
-    
     }
 
     //Open connection

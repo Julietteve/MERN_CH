@@ -46,6 +46,25 @@
             </div>
         </div>
         <div id='productos'></div>
+        <div class="box-container">
+            <div class="products-container" > 
+                <div class="container row d-flex justify-content-center">    
+                    <div class="col-12">
+                        <h2 class="product-title">Centro de mensajes</h2>
+                        <form class="form-inline" onsubmit="return addMessage(this)" autocomplete="off">
+                            <label for="exampleInputEmail1">Correo</label>
+                            <input type="email" id="username" class="form-control my-2 mr-2" placeholder="Correo electrónico">
+                            <label for="exampleInputEmail1">Mensaje</label>
+                            <input type="text" id="texto" class="form-control my-2 mr-2" placeholder="Mensaje">
+                            <button type="submit" class=" m-2 btn btn-success">Enviar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="box-container-msg">
+            <div id="messages"></div>
+        </div>
     <script src="/socket.io/socket.io.js"></script>
     <script  src="/js/socket-client.js"></script>
     </body>
