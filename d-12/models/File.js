@@ -1,7 +1,7 @@
 
 const { readFile, unlink, writeFile } = require('fs/promises');
 
-class File {
+class Archivo {
     constructor() {
         this.filepath = './db/messages.txt'
     }
@@ -39,4 +39,4 @@ class File {
 
 }
 
-module.exports = File;
+module.exports = Archivo;
