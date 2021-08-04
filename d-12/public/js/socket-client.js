@@ -9,6 +9,7 @@ function pickForm() {
       
       socket.emit('boton', producto);
 
+      //Limpia el input
       document.getElementById('input-title').value = ''
       document.getElementById('input-price').value = ''
       document.getElementById('input-thumbnail').value = ''
