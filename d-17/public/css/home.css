@@ -1,0 +1,40 @@
+
+.box-container{
+  width: 100%;
+  box-sizing: border-box;
+  padding: 1rem;
+}
+
+.box-container-msg{
+  width: 100%;
+  box-sizing: border-box;
+  padding-left: 1rem;
+  padding-top: .3rem;
+  padding-bottom: .3rem;
+}
+
+.products-container{
+  background-color: #E9ECEF;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  width: 100%;
+  padding: 1rem;
+}
+
+.product-title{
+    color: #2A2AFC;
+}
+
+.author{
+  color:rgb(0,0,255);
+}
+
+.message{
+  color: rgb(0,143,57);
+}
+
+.date{
+  color:rgb(128,64,0);
+}
