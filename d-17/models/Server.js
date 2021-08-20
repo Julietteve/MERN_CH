@@ -1,9 +1,11 @@
 const express = require('express')
 var  handlebars  = require('express-handlebars');
 const File = require('./File');
+const Mensaje = require('../db_Model/dao/mensaje')
 require('dotenv').config()
 
 const archivo = new File()
+const message = new Mensaje()
 
 const listaProductos = []
 
@@ -77,12 +79,18 @@ class Server {
             })
 
             //Chat
-            socket.emit('messages', await archivo.read())
-
+            socket.emit('messages', await message.list())
+            
+            let m = await message.list()
+            console.log(m)
             socket.on('new-message', async (data) => {
-          
-            await archivo.save(data.author, data.text)
-              this.io.sockets.emit('messages', await archivo.read())
+            const newMsg = {
+                author: data.author,
+                text: data.text
+            };
+            newMsg.date = new Date().toLocaleString()
+            await message.insert(newMsg)
+              this.io.sockets.emit('messages', await message.list())
             })
         })
     }
