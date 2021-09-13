@@ -1,0 +1,22 @@
+<div class="box-container">
+    <div class="products-container" >
+        <div class="row">
+            <div class="col-6">
+                <h2 class="product-title">{{vista}}</h2>
+            </div>
+            <div class="col-6">
+                <div class="d-flex justify-content-end">
+                     <a class="btn btn-primary" href="http://localhost:{{port}}/api/productos/nuevo-producto" role="button">Cargar nuevo producto</a>
+                </div>
+            </div>
+        </div>
+            <div class="table-responsive">
+                <table class="table table-dark">
+                    <tr> <th>Nombre</th> <th>Precio</th> <th>Foto</th></tr>
+                        {{#each data.parsedData}}
+                            <tr> <td>{{this.title}}</td> <td>${{this.price}}</td> <td><img width="60" src={{this.thumbnail}} alt="not found"></td> </tr>
+                        {{/each}}
+                </table>
+            </div>
+    </div>
+</div>
