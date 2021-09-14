@@ -1,11 +1,12 @@
 const express = require('express')
 var  handlebars  = require('express-handlebars');
-const File = require('./File');
-const Mensaje = require('../db_Model/dao/mensaje')
 require('dotenv').config()
+const { denormalize, normalize, schema } = require('normalizr');
 
-const archivo = new File()
-const message = new Mensaje()
+const ArchivoDB = require('../db_Model/dao/mensaje')
+
+const message = new ArchivoDB()
+
 
 const listaProductos = []
 
@@ -64,9 +65,27 @@ class Server {
     //Sockets
 
     sockets() {
+    
+        const user = new schema.Entity("users");
+
+// Define your text schema
+        const text = new schema.Entity("text");
+
+// Define your mensaje
+        const mensaje = new schema.Entity("mensaje", {
+            author: user,
+            text: text,
+        });
+
+        const mensajes = new schema.Entity("mensajes", {
+            mensajes: [mensaje],
+        });
+
         
         this.io.on('connection', async (socket) => {
             console.log('Cliente conectado')
+            
+            let listaMensajes = await message.list()
 
             //Productos
             socket.emit('productos', listaProductos)
@@ -79,17 +98,35 @@ class Server {
             })
 
             //Chat
-            socket.emit('messages', await message.list())
-            
-            let m = await message.list()
-            console.log(m)
+            socket.emit('messages', listaMensajes)
+        
             socket.on('new-message', async (data) => {
-            const newMsg = {
-                author: data.author,
-                text: data.text
-            };
-            newMsg.date = new Date().toLocaleString()
-            await message.insert(newMsg)
+                const nuevoMensaje = {
+                    id: listaMensajes.length+1,
+                    author: {
+                      id: data.author.id,
+                      nombre: data.author.nombre,
+                      apellido: data.author.apellido,
+                      edad: data.author.edad,
+                      alias: data.author.alias,
+                      avatar: data.author.avatar
+                    },
+                    text: {
+                      id: listaMensajes.length+1,
+                      text: data.text,
+                    },
+                    date: new Date().toLocaleString()
+                  };
+                  // console.log(nuevoMensaje);
+                  listaMensajes.push(nuevoMensaje)
+                  // console.log(listaMensajes);
+                  const originalData = {
+                    id: "1",
+                    mensajes: listaMensajes,
+                  };
+                  const normalizedData = normalize(originalData, mensajes);
+                  
+             await message.insert(normalizedData)
               this.io.sockets.emit('messages', await message.list())
             })
         })
