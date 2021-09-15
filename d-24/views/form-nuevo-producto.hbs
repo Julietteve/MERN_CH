@@ -1,0 +1,45 @@
+        {{#if usuario}} 
+            <div class="alert alert-success row m-3">
+                <div class="col-6">
+                    <h2>Bievenido {{usuario}}</h2>
+                </div>
+                <div class="col-6" style="display:flex;justify-content:flex-end;align-items:center">
+                <form action="/api/logout" method="get" class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <input type="hidden" name="form" value="1" />
+                        <button type="submit" class="btn btn-warning btn-sm">
+                                Desloguearse
+                        </button>
+                    </div>
+                </form>
+                </div>
+            </div>
+        {{else}}
+        <div class="form-group">
+            <label>Usuario no Logeado</label>
+        </div>
+        {{/if}}       
+<div class="box-container">
+    <div class="products-container" > 
+        <div class="container row d-flex justify-content-center">
+            <div class="col-12 ">
+                 <h2 class="product-title">{{vista}}</h2>
+                    <form action="/api/productos" method="POST">
+                        <div class="form-group m-2">
+                            <label for="exampleInputEmail1">Titulo</label>
+                            <input input type="text" name="title" class="form-control" id="exampleInputEmail1" placeholder="Titulo" required>
+                        </div>
+                        <div class="form-group m-2">
+                            <label >Precio</label>
+                            <input type="number" step=".01" name="price" class="form-control" id="exampleInputPassword1" placeholder="Precio" required>
+                        </div>
+                        <div class="form-group m-2">
+                            <label >Imagen URL</label>
+                            <input type="text" name="thumbnail" name="price" class="form-control" placeholder="Thumbnail" required>
+                        </div>
+                            <button type="submit" class=" m-2 btn btn-success">Enviar</button>
+                    </form>
+            </div>
+        </div>
+    </div>
+</div>
