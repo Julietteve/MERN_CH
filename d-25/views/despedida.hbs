@@ -1,0 +1,13 @@
+{{#if usuario}}  
+  <div class="alert alert-primary container m-5">
+    <div class="row">
+      <h1 class="text-center">Hasta luego {{usuario}}</h1>
+    </div>
+  </div>
+  <script>
+         setTimeout(function(){
+            window.location.href = 'http://localhost:8080/api/login';
+         }, 2000);
+      </script>
+{{else}}
+{{/if}}

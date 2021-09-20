@@ -1,0 +1,26 @@
+[
+  {
+    "author": "gio@ar.com",
+    "text": "Quien quien",
+    "id": 1,
+    "date": "1/8/2021 22:39:23"
+  },
+  {
+    "author": "sion@ar.com",
+    "text": "da Police",
+    "id": 2,
+    "date": "1/8/2021 22:50:18"
+  },
+  {
+    "author": "teoki@ar.com",
+    "text": "Morning!",
+    "id": 3,
+    "date": "1/8/2021 22:50:55"
+  },
+  {
+    "author": "kim@ar.com",
+    "text": "WTF!",
+    "id": 4,
+    "date": "1/8/2021 23:06:16"
+  }
+]
