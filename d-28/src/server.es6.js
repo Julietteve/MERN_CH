@@ -11,15 +11,13 @@ const ArchivoDB = require('./DB/archivoDb');
 const archivoDB = new ArchivoDB();
 const UsuarioDB = require('./DB/usuariosDb');
 const usuarioDB = new UsuarioDB();
-const { fork } = require('child_process');
 /* ------------------ PASSPORT -------------------- */
 const passport = require('passport');
 var FacebookStrategy = require('passport-facebook').Strategy;
 
 /* ------------------ PASSPORT FACEBOOK -------------------- */
-const port = parseInt(process.argv[2]) || 8080;
-const facebook_client_id = process.argv[3] || process.env.FACEBOOK_CLIENT_ID;
-const facebook_client_secret = process.argv[4] || process.env.FACEBOOK_CLIENT_SECRET;
+const facebook_client_id = process.env.FACEBOOK_CLIENT_ID;
+const facebook_client_secret = process.env.FACEBOOK_CLIENT_SECRET;
 
 passport.use(new FacebookStrategy({
   clientID: facebook_client_id.toString(),
@@ -108,6 +106,7 @@ app.use(session({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
+
 /* --------------------- ROUTES --------------------------- */
 
 app.use("/productos", isAuth, productRoutes);
@@ -124,7 +123,7 @@ app.get('/logout', (req, res) => {
 app.get('/auth/facebook', passport.authenticate('facebook'));
 app.get('/auth/facebook/callback', passport.authenticate('facebook', { successRedirect: '/', failureRedirect: '/faillogin' }));
 
-/* --------- LOGIN ---------- */
+// LOGIN
 app.get('/login', (req, res) => {
   res.render('login')
 })
@@ -143,57 +142,6 @@ app.get('/chat', isAuth, (req, res) => {
   res.sendFile('./index.html', { root:__dirname })
   
 });
-
-/* --------- INFO ---------- */
-app.get('/info', isAuth, (req, res) => {
-  // console.log(process.argv)
-  // console.log(process.memoryUsage())
-
-  res.render('info', {
-    user: req.user,
-    info: process,
-    argv: process.argv,
-    memoryUsage: process.memoryUsage(),
-  });
-})
-/* --------- RANDOMS ---------- */
-app.get('/randoms', isAuth, (req, res) => {
-  const { cant } = req.params;
-  console.log(cant)
-  let { url } = req;
-
-  if (url == `/randoms?cant=${cant}`) {
-    const computo = fork('./computo.js');
-    computo.send('start');
-
-    const array = [];
-    if (cant == undefined) {
-      for (let i = 0; i < 100000000; i++) {
-        const numero_random = computo;
-        array.push(numero_random);
-      }
-      console.log(array)
-
-      res.render('randoms', {
-        active: 'randoms',
-        randoms: array,
-        cantidad: cant,
-      })
-
-    }else if (url == `/randoms?cant=${cant}`) {
-      for (let i = 0; i < cant; i++) {
-        const numero_random = computo;
-        array.push(numero_random);
-      };
-
-      res.render('randoms', {
-        active: 'randoms',
-        randoms: array,
-        cantidad: cant,
-      })
-    }
-  }
-})
 
 const user = new schema.Entity("users");
 const text = new schema.Entity("text");
@@ -248,10 +196,7 @@ io.on('connection', async (socket) => {
   })
 })
 
-process.on('exit', function (code) {
-  console.log('Exit code:'+ code);
-});
-
+const port = 8080;
 const server = httpServer.listen(port, () => {
   console.log('El servidor esta corriendo en el puerto: ' + server.address().port);
 });
