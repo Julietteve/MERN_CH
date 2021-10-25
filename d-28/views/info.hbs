@@ -1,9 +1,7 @@
 {{#if user}}  
+    <div class="form-group">
 
-    <div class="form-group m-5">
-     <h4>Vista de Productos</h4>
-
-        <h1 class="display-4" >Bievenido {{user.username}}</h1>
+        <label>Bievenido! {{user.username}}</label>
 
         <div id="user-profile-2" class="user-profile">
                 <div class="tabbable">
@@ -19,7 +17,7 @@
                     <div class="tab-content no-border padding-24">
                         <div id="home" class="tab-pane in active">
 
-                            <div class="row m-5">
+                            <div class="row">
 
                                 <div class="col-xs-12 col-sm-3 center">
                                     <span class="profile-picture">
@@ -35,14 +33,14 @@
 
                                     <div class="profile-user-info">
                                         <div class="profile-info-row">
-                                            <h6 class="profile-info-name"> Nombre Completo </h6>
+                                            <div class="profile-info-name"> Nombre Completo </div>
 
                                             <div class="profile-info-value">
                                                 <span>{{user.username}}</span>
                                             </div>
                                         </div>
                                                         <div class="profile-info-row">
-                                            <h6 class="profile-info-name"> Email </h6>
+                                            <div class="profile-info-name"> Email </div>
 
                                             <div class="profile-info-value">
                                                 <span>{{user.email}}</span>
@@ -50,6 +48,10 @@
                                         </div>
 
                                     </div>
+
+                                    <div class="hr hr-8 dotted"></div>
+
+                                    <div class="profile-user-info"></div>
                     
                                 </div><!-- /.col -->
 
@@ -82,37 +84,65 @@
 
 {{/if}}
 
-{{#if products}}
-
-    <table class="table">
+{{#if info}}  
+        <table class="table">
         <thead>
             <tr>
-            <th scope="col">#</th>
-            <th scope="col">title</th>
-            <th scope="col">price</th>
-            <th scope="col">thumbnail</th>
-            </tr>
+                <th scope="col">
+                    Argumentos de entrada
+                </th>
+                <th scope="col">Nombre de plataforma</th>
+                <th scope="col">Version de node.js</th>
+                <th scope="col">
+                    Uso de memoria
+                </th>
+                <th scope="col">Path de Ejecución</th>
+                <th scope="col">Process id</th>
+                <th scope="col">Carpeta corriente</th>
+                </tr>
         </thead>
         <tbody>
-
-        {{#each products}}
-
             <tr>
-                <th scope="row">{{id}}</th>
-                <td>{{title}}</td>
-                <td>{{price}}</td>
-                {{#if thumbnail}}
                 <td>
-                    <img width="20%" class="img-fluid img-thumbnail" src={{{thumbnail}}} alt="" />
+
+                    {{#each argv}}
+                    <li>
+                        {{ this }}
+                    </li>
+                    {{/each}}
+
                 </td>
-                {{/if}}
+                <td>{{info.title}}</td>
+                <td>{{info.version}}</td>
+
+                <td>
+
+                    <li>
+                      rss:  {{memoryUsage.rss}}
+                    </li>
+                    <li>
+                      heapTotal:  {{memoryUsage.heapTotal}}
+                    </li>
+                    <li>
+                      heapUsed:  {{memoryUsage.heapUsed}}
+                    </li>
+                    <li>
+                      external:  {{memoryUsage.external}}
+                    </li>
+                    <li>
+                      arrayBuffers:  {{memoryUsage.arrayBuffers}}
+                    </li>
+
+                </td>
+
+                <td>{{info.execPath}}</td> 
+                <td>{{info.pid}}</td> 
+                <td>{{info.cwd}}</td> 
             </tr>
-        {{/each}}
         </tbody>
     </table>
-
 {{else}}
-
-    <p>Sin productos</p>
-
+    <p>
+        process NO
+    </p>
 {{/if}}

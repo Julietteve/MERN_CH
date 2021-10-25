@@ -143,6 +143,34 @@ app.get('/chat', isAuth, (req, res) => {
   
 });
 
+const cluster = require('cluster')
+
+/* --------- INFO ---------- */
+app.get('/info', isAuth, (req, res) => {
+  // console.log(process.argv)
+  // console.log(process.memoryUsage())
+  const numCPUs = require('os').cpus().length
+
+  // for (let i = 0; i < numCPUs; i++) {
+  //   cluster.fork()
+  // }
+
+  // cluster.on('exit', worker => {
+  //   console.log('Worker', worker.process.pid, 'died', new Date().toLocaleString())
+  //   cluster.fork()
+  // })
+
+  res.render('info', {
+    user: req.user,
+    info: process,
+    argv: process.argv,
+    memoryUsage: process.memoryUsage(),
+    numCPUs: numCPUs,
+  });
+})
+
+
+
 const user = new schema.Entity("users");
 const text = new schema.Entity("text");
 const mensaje = new schema.Entity("mensaje", {

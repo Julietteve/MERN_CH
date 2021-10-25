@@ -1,11 +1,9 @@
 {{#if user}}  
-    <p>Vista de Productos</p>
-
     <div class="form-group">
 
         <label>Bievenido! {{user.username}}</label>
 
-        <div id="user-profile-2" class="user-profile m-5">
+        <div id="user-profile-2" class="user-profile">
                 <div class="tabbable">
                     <ul class="nav nav-tabs padding-18">
                         <li class="active">
@@ -35,14 +33,14 @@
 
                                     <div class="profile-user-info">
                                         <div class="profile-info-row">
-                                            <h6> Nombre Completo </h6>
+                                            <div class="profile-info-name"> Nombre Completo </div>
 
                                             <div class="profile-info-value">
                                                 <span>{{user.username}}</span>
                                             </div>
                                         </div>
                                                         <div class="profile-info-row">
-                                            <h6> Email </h6>
+                                            <div class="profile-info-name"> Email </div>
 
                                             <div class="profile-info-value">
                                                 <span>{{user.email}}</span>
@@ -70,7 +68,7 @@
             <div class="col-sm-offset-3 col-sm-9">
                 <input type="hidden" name="form" value="1" />
                 <button type="submit" class="btn btn-success btn-sm">
-               Log Out
+                Desloguearse
                 </button>
             </div>
             </div>
@@ -86,25 +84,35 @@
 
 {{/if}}
 
-    <form action="/productos/vista" method="post" role="form">
-        <div class="form-group">
-            <label for="name">Title</label>
-            <input id="input-title" class="form-control" type="text" name="title">
-        </div>
-        <div class="form-group">
-            <label for="name">Price</label>
-            <input id="input-price" class="form-control" type="number" name="price">
-        </div>
-        <div>
-            <label for="name">Image</label>
-            <input id="input-thumbnail" class="form-control" type="text" name="thumbnail">
-        </div>
-        <input type="hidden" name="form" value="1" />
-        <button id ='miBoton' type="submit" class="btn btn-default">ENVIAR</button>
-    </form>
 
 
+{{#if randoms}}
+        <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">
+                    Numero randoms generados aleatoriamente
+                </th>
+                <th scope="col">Cantidad</th>
 
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    {{#each randoms}}
+                    <li>
+                        {{ this }}
+                    </li>
+                    {{/each}}
+                </td>
+                <td>{{cant}}</td>
+
+            </tr>
+        </tbody>
+    </table>
+{{else}}
+    No randoms
+{{/if}}
 
 
 
