@@ -19,7 +19,7 @@ const passport = require('passport');
 var FacebookStrategy = require('passport-facebook').Strategy;
 
 /* ------------------ PASSPORT FACEBOOK -------------------- */
-const port = parseInt(process.argv[2]) || 8080;
+const port = process.env.PORT || 8080;
 const facebook_client_id = process.argv[3] || process.env.FACEBOOK_CLIENT_ID;
 const facebook_client_secret = process.argv[4] || process.env.FACEBOOK_CLIENT_SECRET;
 
@@ -83,12 +83,8 @@ const app = express();
 const httpServer = require('http').Server(app);
 const io = require('socket.io')(httpServer);
 
-const advancedOptions = { useNewUrlParser: true, useUnifiedTopology: true };
-
-const admin = process.env.MONGO_USER;
-const password = process.env.MONGO_PASSWORD;
-
-const url = 'mongodb+srv://'+admin.toString()+':'+password.toString()+'@cluster0.rzdyo.mongodb.net/sesiones?retryWrites=true&w=majority';
+const advancedOptions = { useNewUrlParser: true, useUnifiedTopology: true }
+const url = "mongodb+srv://node_user:upQKcMsWxZUQKOlY@chingacluster.ejcl0.mongodb.net?retryWrites=true&w=majority";
 
 /* --------------------- MIDDLEWARE --------------------------- */
 var hbs = exphbs.create({
@@ -264,7 +260,7 @@ process.on('exit', function (code) {
   console.log('Exit code:'+ code);
 });
 
-const server = httpServer.listen(port, () => {
+const server = httpServer.listen(port,() => {
   logger.info('El servidor esta corriendo en el puerto: ' + server.address().port);
 });
 server.on('error', err => {
