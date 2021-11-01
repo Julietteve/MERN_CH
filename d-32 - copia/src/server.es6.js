@@ -5,21 +5,21 @@ const session = require('express-session');
 require('dotenv').config();
 const MongoStore = require('connect-mongo');
 const { normalize, schema } = require('normalizr');
-const productRoutes = require("./src/routes/products");
-const frontRoutes = require('./src/routes/front');
-const ArchivoDB = require('./src/DB/archivoDb');
+const productRoutes = require("./routes/products");
+const frontRoutes = require('./routes/front');
+const ArchivoDB = require('./DB/archivoDb');
 const archivoDB = new ArchivoDB();
-const UsuarioDB = require('./src/DB/usuariosDb');
+const UsuarioDB = require('./DB/usuariosDb');
 const usuarioDB = new UsuarioDB();
 // const { fork } = require('child_process');
 const compression = require('compression');
-const { logger, loggerWarn, loggerError } = require('./src/logger')
+const { logger, loggerWarn, loggerError } = require('./logger')
 /* ------------------ PASSPORT -------------------- */
 const passport = require('passport');
 var FacebookStrategy = require('passport-facebook').Strategy;
 
 /* ------------------ PASSPORT FACEBOOK -------------------- */
-const port = process.env.PORT || 8080;
+const port = parseInt(process.argv[2]) || 8080;
 const facebook_client_id = process.argv[3] || process.env.FACEBOOK_CLIENT_ID;
 const facebook_client_secret = process.argv[4] || process.env.FACEBOOK_CLIENT_SECRET;
 
@@ -83,7 +83,8 @@ const app = express();
 const httpServer = require('http').Server(app);
 const io = require('socket.io')(httpServer);
 
-const advancedOptions = { useNewUrlParser: true, useUnifiedTopology: true }
+const advancedOptions = { useNewUrlParser: true, useUnifiedTopology: true };
+
 const url = "mongodb+srv://node_user:upQKcMsWxZUQKOlY@chingacluster.ejcl0.mongodb.net?retryWrites=true&w=majority";
 
 /* --------------------- MIDDLEWARE --------------------------- */
@@ -141,7 +142,8 @@ app.get('/chat', isAuth, (req, res) => {
   if (!req.user.contador){
     req.user.contador = 0
   }
-  res.sendFile('./src/index.html', { root:__dirname })
+  res.sendFile('./index.html', { root:__dirname })
+  
 });
 
 /* --------- INFO ---------- */
@@ -260,7 +262,7 @@ process.on('exit', function (code) {
   console.log('Exit code:'+ code);
 });
 
-const server = httpServer.listen(port,() => {
+const server = httpServer.listen(port, () => {
   logger.info('El servidor esta corriendo en el puerto: ' + server.address().port);
 });
 server.on('error', err => {

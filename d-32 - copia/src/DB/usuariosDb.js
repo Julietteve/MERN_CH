@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const url =  "mongodb+srv://node_user:upQKcMsWxZUQKOlY@chingacluster.ejcl0.mongodb.net?retryWrites=true&w=majority";
+const url = 'mongodb://localhost:27017/ecommerce';
 
 const esquemaUsuario = new mongoose.Schema({
   username: { type: String, require: true, max: 100 },

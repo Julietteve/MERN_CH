@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const { denormalize, normalize, schema } = require('normalizr');
 const utils = require('util');
 
-const url =  "mongodb+srv://node_user:upQKcMsWxZUQKOlY@chingacluster.ejcl0.mongodb.net?retryWrites=true&w=majority";
+const url = 'mongodb://localhost:27017/ecommerce';
 
 const user = new schema.Entity("users");
 
