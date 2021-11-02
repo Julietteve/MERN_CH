@@ -2,6 +2,8 @@ const mongoose = require('mongoose');
 
 const url = 'mongodb://localhost:27017/ecommerce';
 
+// const url = 'mongodb://localhost:27017/ecommerce';
+
 const esquemaUsuario = new mongoose.Schema({
   username: { type: String, require: true, max: 100 },
   facebookId: { type: String, require: true},
