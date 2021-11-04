@@ -105,7 +105,7 @@ app.use(cookieParser());
 app.use(session({
   store: MongoStore.create({ 
     mongoUrl: url,
-    ttl: 10 * 60, // = 10 min. Default
+    ttl: 10 * 60, 
     mongoOptions: advancedOptions }),
   secret: 'secret',
   resave: false,
@@ -185,7 +185,7 @@ app.get('/', isAuth, (req, res) => {
     subject: `Mail Gmail de ${nombre_usuario} a las ${new Date().toLocaleString()}`,
     html: `<h1 style="color: blue;">El usuario ${nombre_usuario} se a logueado con Facebook a las ${new Date().toLocaleString()} </h1>`,
     attachments: [
-      {   // filename and content type is derived from path
+      {  
           path: foto_facebook
       }
   ]
@@ -281,6 +281,8 @@ io.on('connection', async (socket) => {
       },
       date: new Date().toLocaleString()
     };
+
+    // REVISAR CREDENCIALES EN .ENV POR SEGUIRIDAD MSG TWLIO
     if (data.text.toString().includes("administrador")){
         client.messages.create({
           body: `Mensaje enviado por ${data.author.nombre} ${data.author.apellido}. \n\n
